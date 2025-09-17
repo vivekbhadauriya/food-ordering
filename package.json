@@ -4,12 +4,15 @@
   "description": "Namaste React",
   "scripts": {
     "test": "jest",
-    "start": "parcel index.html --no-cache"
+    "start": "parcel index.html --no-cache",
+    "clean": "rimraf .parcel-cache dist"
   },
   "author": "Vivek",
   "license": "ISC",
   "devDependencies": {
-    "parcel": "^2.15.4"
+    "@parcel/transformer-react-refresh-wrap": "^2.15.4",
+    "parcel": "^2.15.4",
+    "react-refresh": "^0.17.0"
   },
   "dependencies": {
     "react": "^18.3.1",
