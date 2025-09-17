@@ -12,7 +12,8 @@
   "devDependencies": {
     "@parcel/transformer-react-refresh-wrap": "^2.15.4",
     "parcel": "^2.15.4",
-    "react-refresh": "^0.17.0"
+    "react-refresh": "^0.17.0",
+    "rimraf": "^6.0.1"
   },
   "dependencies": {
     "react": "^18.3.1",

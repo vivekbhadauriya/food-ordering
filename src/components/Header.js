@@ -1,10 +1,12 @@
+import { HERO_URL, LOGO_URL } from "../Utils/constant";
+
 const Header = () =>{
     return (
 
         <>
         <div id="nav-items">
             <div id="logo">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQk50Ut-wJKwbca3BTPssDUl_fqnsEE_D2tcw&s"></img>
+            <img src={LOGO_URL}></img>
             </div>
                 <ul>
                     <li>Home</li>
@@ -18,3 +20,4 @@ const Header = () =>{
 
     );
 };
+export default Header;
