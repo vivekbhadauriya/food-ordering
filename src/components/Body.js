@@ -1,13 +1,29 @@
 import RestroCard from "./RestroCard";
-import ResList from "../Utils/ResList";
+// import ResList from "../Utils/ResList";
 import { HERO_URL } from "../Utils/constant";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Body = () => {
-    const[list,setlist] = useState(ResList)
-    console.log(list);
-    
+    const [list, setList] = useState([]);
 
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
+        const response = await fetch(
+            "https://www.swiggy.com/mapi/restaurants/list/v5?offset=0&is-seo-homepage-enabled=true&lat=28.57590&lng=77.33450&carousel=true&third_party_vendor=1"
+        );
+        const json = await response.json();
+        let restaurants;
+        for (const card of json?.data?.cards || []) {
+            if (card?.card?.card?.gridElements?.infoWithStyle?.restaurants) {
+                restaurants = card.card.card.gridElements.infoWithStyle.restaurants;
+                break;
+            }
+        }
+        setList(restaurants || []);
+    };
     return (
         <>
         <section className="hero-section">
@@ -17,19 +33,23 @@ const Body = () => {
                 <button className="hero-btn">Order Now</button>
             </div>
             <div className="hero-image">
-                <img src= {HERO_URL} alt="Delicious Food" />
+                <img src={HERO_URL} alt="Delicious Food" />
             </div>
         </section>
         <div className="filter-btn">
-            <button className="filter" onClick={() => setlist(list.filter((res) => res.info.avgRating > 4.2))}>
-                   
-              Top Rated Restro </button>
+            <button className="filter" onClick={() => setList(list.filter((res) => res.info.avgRating > 4.2))}>
+                Top Rated Restro
+            </button>
         </div>
 
         <div className="restro-block">
-            {list.map(({info}) => (
-                <RestroCard key={info.id} {...info} deliveryTime={info.sla?.deliveryTime} />
-            ))}
+            {Array.isArray(list) && list.length > 0 ? (
+                list.map(({ info }) => (
+                    <RestroCard key={info.id} {...info} deliveryTime={info.sla?.deliveryTime} />
+                ))
+            ) : (
+                <p>No restaurants found.</p>
+            )}
         </div>
         </>
     );
