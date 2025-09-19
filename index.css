@@ -149,4 +149,14 @@ li {
 .filter-btn filter{
     background-color:#fc8019;
     
+    
+}
+.filter-btn {
+    display: flex;
+    margin: 10px;
+    align-items: center;
+    border: 1px solid black;
+}
+.search-btn{
+    margin: 10px;
 }

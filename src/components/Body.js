@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 const Body = () => {
     const [list, setList] = useState([]);
+    const [search,setsearch] = useState("");
 
     useEffect(() => {
         fetchData();
@@ -14,6 +15,8 @@ const Body = () => {
         const response = await fetch(
             "https://www.swiggy.com/mapi/restaurants/list/v5?offset=0&is-seo-homepage-enabled=true&lat=28.57590&lng=77.33450&carousel=true&third_party_vendor=1"
         );
+        console.log("data fetched");
+        
         const json = await response.json();
         let restaurants;
         for (const card of json?.data?.cards || []) {
@@ -37,6 +40,24 @@ const Body = () => {
             </div>
         </section>
         <div className="filter-btn">
+            <div className="search">
+                <input type="text" className="search-box" value={search} onChange={(e)=>{
+                    setsearch(e.target.value);
+                }}
+                
+                // On search it should update restro list and render the uI
+                >
+                
+                </input>
+
+                <button className="search-btn" onClick={() => {
+                    setList(list.filter((res) =>
+                        res.info.name.toLowerCase().includes(search.toLowerCase())
+                    ));
+                }}>
+                    Search
+                </button>
+            </div>
             <button className="filter" onClick={() => setList(list.filter((res) => res.info.avgRating > 4.2))}>
                 Top Rated Restro
             </button>
