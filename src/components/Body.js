@@ -13,14 +13,12 @@ const Body = () => {
 
     const fetchData = async () => {
         const response = await fetch(
-            `https://whateverorigin.org/get?url=${encodeURIComponent('https://www.swiggy.com/mapi/restaurants/list/v5?offset=0&is-seo-homepage-enabled=true&lat=28.57590&lng=77.33450&carousel=true&third_party_vendor=1')}`
+            "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.57590&lng=77.33450&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTINGkf"
         );
-        console.log("data fetched");
-        const proxyJson = await response.json();
-        // The actual Swiggy data is inside proxyJson.contents as a JSON string
-        const swiggyJson = JSON.parse(proxyJson.contents);
+        const data = await response.json();
+        console.log("data fetched", data);
         let restaurants;
-        for (const card of swiggyJson?.data?.cards || []) {
+        for (const card of data?.data?.cards || []) {
             if (card?.card?.card?.gridElements?.infoWithStyle?.restaurants) {
                 restaurants = card.card.card.gridElements.infoWithStyle.restaurants;
                 break;
